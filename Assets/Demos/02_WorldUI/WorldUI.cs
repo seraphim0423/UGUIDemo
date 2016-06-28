@@ -18,5 +18,4 @@ public class WorldUI : MonoBehaviour
             cube.transform.position = pos;
         }
 	}
-	
 }
