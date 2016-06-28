@@ -7,10 +7,10 @@ using System.Collections.Generic;
 public class Hexagram : MonoBehaviour 
 {
     public float circle = 360f;
-    // 其实方向
+    // 起始方向
     public Vector3 startDirection = new Vector3(0, 1, 0);
     // 星属性
-    public int[] stars = null;
+    public int[] attributes = null;
     // 最大值
     public float fullStrength = 100f;
 
@@ -20,10 +20,10 @@ public class Hexagram : MonoBehaviour
         RectTransform rectTransform = GetComponent<RectTransform>();
 
         // 获取每个属性点的方向向量
-        int starsCount = this.stars.Length;
+        int starsCount = this.attributes.Length;
         List<Vector3> directionList = new List<Vector3>(starsCount);
         float deltaAngle = this.circle / starsCount;
-        for (int i = 0; i < stars.Length; ++i)
+        for (int i = 0; i < attributes.Length; ++i)
         {
             float angle = i * deltaAngle;
             float rad = Mathf.Deg2Rad * angle;
@@ -41,7 +41,7 @@ public class Hexagram : MonoBehaviour
         for (int i = 1; i < verticesCount; ++i)
         {
             int index = i - 1;
-            vertices.Add(directionList[index] * this.stars[index] / this.fullStrength * rectTransform.sizeDelta.x);
+            vertices.Add(directionList[index] * this.attributes[index] / this.fullStrength * rectTransform.sizeDelta.x);
         }
         mesh.SetVertices(vertices);
         // 设置UV属性
@@ -51,7 +51,7 @@ public class Hexagram : MonoBehaviour
         colors.Add(new Color32(255, 255, 255, 255));
         for (int i = 0; i < starsCount; ++i)
         {
-            float strength = stars[i] / rectTransform.sizeDelta.x;
+            float strength = attributes[i] / rectTransform.sizeDelta.x;
             byte r = (byte)(strength * 200);
             Color32 c = new Color32(r, 0, 0, 255);
             colors.Add(c);
